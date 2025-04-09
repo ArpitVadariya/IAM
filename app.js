@@ -4,11 +4,13 @@ const port = 3000;
 const bcrypt = require("bcrypt");
 
 app.get("/", (req, res) => {
-  bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash("myPlaintextPassword", salt, function (err, hash) {
-      console.log(hash);
-    });
-  });
+  bcrypt.compare(
+    "myPlaintextPassword",
+    "$2b$10$hrIHrp8rBW7VUALlboMNKevFwrWH/3WENAc339VPc1gPTsEZzZISK",
+    function (err, result) {
+      console.log(result);
+    }
+  );
   res.send("Hello World!");
 });
 
