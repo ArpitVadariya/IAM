@@ -1,25 +1,18 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 
+const cookieParser = require("cookie-parser");
+const path = require("path");
+
+app.set("view-engine", "ejs");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  let token = jwt.sign({ email: "arpit@example.com" }, "secretkey");
-  console.log(token);
-  res.cookie("token", token);
-  res.send("Hello World!");
-});
-
-app.get("/read", function (req, res) {
-  // console.log(`Token is ${req.cookies.token}`);
-  let data = jwt.verify(req.cookies.token, "secretkey");
-  console.log(data);
-
-  res.send("Read Page");
+  res.send("Welcome Home");
 });
 
 app.listen(port, () => {
